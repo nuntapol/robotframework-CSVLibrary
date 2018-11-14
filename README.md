@@ -4,6 +4,8 @@ CSVLibrary is a [Robot Framework](http://robotframework.org/) library for handli
 
 More information about this library can be found in the [Keyword Documentation](https://rawgit.com/s4int/robotframework-CSVLibrary/master/doc/CSVLibrary.html).
 
+P.S. : This is customized from original for support robot framework script that use Python3
+
 ## Installation
 ### Using pip
 ```bash
