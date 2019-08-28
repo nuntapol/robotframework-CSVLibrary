@@ -31,7 +31,7 @@ class CSVLibrary(object):
 
     @staticmethod
     def _open_csv_file_for_write(filename, data, csv_writer=csv.writer, **kwargs):
-        with open(filename, 'ab') as csv_handler:
+        with open(filename, 'a') as csv_handler:
             writer = csv_writer(csv_handler, **kwargs)
             try:
                 if isinstance(writer, csv.DictWriter) and 'fieldnames' in kwargs.keys():
