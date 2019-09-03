@@ -27,11 +27,12 @@ class CSVLibrary(object):
                             if len(line_numbers) == 0:
                                 break
             except csv.Error as e:
-                logger.error('file %s, line %d: %s' % (filename, reader.line_num, e))
+                logger.error('file %s, line %d: %s' %
+                             (filename, reader.line_num, e))
 
     @staticmethod
     def _open_csv_file_for_write(filename, data, csv_writer=csv.writer, **kwargs):
-        with open(filename, 'a') as csv_handler:
+        with open(filename, 'a', encoding='utf-8') as csv_handler:
             writer = csv_writer(csv_handler, **kwargs)
             try:
                 if isinstance(writer, csv.DictWriter) and 'fieldnames' in kwargs.keys():
@@ -40,12 +41,13 @@ class CSVLibrary(object):
 
                 writer.writerows(data)
             except csv.Error as e:
-                logger.error('file %s, line %d: %s' % (filename, writer.line_num, e))
+                logger.error('file %s, line %d: %s' %
+                             (filename, writer.line_num, e))
 
     @staticmethod
     def empty_csv_file(filename):
         """This keyword will empty the CSV file.
-        
+
         - ``filename``: name of csv file
         """
         with open(filename, "w") as csv_handler:
@@ -53,7 +55,7 @@ class CSVLibrary(object):
 
     def read_csv_file_to_list(self, filename, delimiter=',', **kwargs):
         """Read CSV file and return its content as a Python list of tuples.
-        
+
         - ``filename``:  name of csv file
         - ``delimiter``: Default: `,`
         - ``line_numbers``: List of linenumbers to read. Default None
@@ -73,7 +75,7 @@ class CSVLibrary(object):
 
     def read_csv_file_to_associative(self, filename, delimiter=',', fieldnames=None, **kwargs):
         """Read CSV file and return its content as a Python list of dictionaries.
-        
+
         - ``filename``:  name of csv file
         - ``delimiter``: Default: `,`
         - ``fieldnames``: list of column names
@@ -95,7 +97,7 @@ class CSVLibrary(object):
 
     def append_to_csv_file(self, filename, data, **kwargs):
         """This keyword will append data to a new or existing CSV file.
-        
+
         - ``filename``:  name of csv file
         - ``data``: iterable(e.g. list or tuple) data.
         - ``quoting`` (int):
@@ -106,11 +108,12 @@ class CSVLibrary(object):
         """
         if isinstance(data[0], dict):
             data = map(lambda row: row.items(), data)
-        self._open_csv_file_for_write(filename, data=data, csv_writer=csv.writer, **kwargs)
+        self._open_csv_file_for_write(
+            filename, data=data, csv_writer=csv.writer, **kwargs)
 
     def csv_file_from_associative(self, filename, data, fieldnames=None, delimiter=',', **kwargs):
         """This keyword will create new file
-        
+
         - ``filename``:  name of csv file
         - ``data``: iterable(e.g. list or tuple) data.
         - ``fieldnames``: list of column names
